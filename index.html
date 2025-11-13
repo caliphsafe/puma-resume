@@ -1,0 +1,859 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Abdourahmane “Caliph” Doumbouya – Digital Asset & Creative Ops</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <style>
+    :root {
+      --bg: #020308;
+      --accent: #f5c242;
+      --accent-soft: rgba(245, 194, 66, 0.14);
+      --accent-strong: rgba(245, 194, 66, 0.3);
+      --text: #f7f7ff;
+      --muted: #a7a7c2;
+      --border: rgba(255, 255, 255, 0.14);
+      --glass: rgba(11, 13, 22, 0.65);
+      --glass-strong: rgba(15, 18, 30, 0.92);
+      --radius-lg: 22px;
+      --radius-xl: 32px;
+      --shadow-soft: 0 30px 80px rgba(0, 0, 0, 0.85);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html, body {
+      height: 100%;
+    }
+
+    body {
+      font-family: -apple-system, system-ui, BlinkMacSystemFont, "SF Pro Text",
+        "Segoe UI", sans-serif;
+      background:
+        radial-gradient(circle at 0% 0%, #202845 0, transparent 55%),
+        radial-gradient(circle at 100% 100%, #101522 0, transparent 55%),
+        radial-gradient(circle at 50% 0%, #25213f 0, transparent 55%),
+        var(--bg);
+      color: var(--text);
+      line-height: 1.65;
+      -webkit-font-smoothing: antialiased;
+      position: relative;
+      overflow-x: hidden;
+    }
+
+    /* subtle texture */
+    body::before {
+      content: "";
+      position: fixed;
+      inset: -100px;
+      background-image:
+        linear-gradient(
+          125deg,
+          rgba(255, 255, 255, 0.03) 0,
+          transparent 40%,
+          transparent 60%,
+          rgba(255, 255, 255, 0.02) 100%
+        ),
+        repeating-linear-gradient(
+          135deg,
+          rgba(255, 255, 255, 0.015) 0,
+          rgba(255, 255, 255, 0.015) 1px,
+          transparent 1px,
+          transparent 4px
+        );
+      pointer-events: none;
+      opacity: 0.65;
+      mix-blend-mode: soft-light;
+      z-index: -1;
+    }
+
+    .shell {
+      max-width: 980px;
+      margin: 80px auto 60px;
+      padding: 0 18px 60px;
+    }
+
+    /* Top navigation / Apple-glass bar */
+    .top-nav {
+      position: fixed;
+      inset-inline: 0;
+      top: 12px;
+      display: flex;
+      justify-content: center;
+      z-index: 20;
+      pointer-events: none;
+    }
+
+    .top-nav-inner {
+      pointer-events: auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 18px;
+      padding: 10px 16px;
+      width: min(980px, 100% - 32px);
+      border-radius: 999px;
+      background: linear-gradient(
+        135deg,
+        rgba(18, 22, 34, 0.92),
+        rgba(9, 11, 18, 0.86)
+      );
+      border: 1px solid rgba(255, 255, 255, 0.16);
+      box-shadow:
+        0 18px 50px rgba(0, 0, 0, 0.7),
+        0 0 0 0.5px rgba(255, 255, 255, 0.2);
+      backdrop-filter: blur(26px) saturate(1.6);
+    }
+
+    .nav-brand {
+      display: flex;
+      flex-direction: column;
+      gap: 1px;
+    }
+
+    .nav-overline {
+      font-size: 0.68rem;
+      text-transform: uppercase;
+      letter-spacing: 0.22em;
+      color: var(--muted);
+    }
+
+    .nav-name {
+      font-size: 0.95rem;
+      font-weight: 600;
+    }
+
+    .nav-tabs {
+      display: flex;
+      gap: 6px;
+      padding: 3px;
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.02);
+    }
+
+    .nav-tab {
+      border: none;
+      padding: 5px 12px 6px;
+      border-radius: 999px;
+      font-size: 0.72rem;
+      text-transform: uppercase;
+      letter-spacing: 0.16em;
+      color: var(--muted);
+      background: transparent;
+      cursor: pointer;
+      transition:
+        background 0.18s ease,
+        color 0.18s ease,
+        transform 0.18s ease,
+        box-shadow 0.18s ease;
+    }
+
+    .nav-tab.active {
+      color: #0a0b11;
+      background: linear-gradient(135deg, #ffe29f, #f5c242);
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.45);
+      transform: translateY(-1px);
+    }
+
+    main {
+      display: flex;
+      flex-direction: column;
+      gap: 22px;
+      margin-top: 80px;
+    }
+
+    .glass-card {
+      border-radius: var(--radius-xl);
+      background: radial-gradient(
+          circle at 0 0,
+          rgba(255, 255, 255, 0.12),
+          transparent 55%
+        ),
+        var(--glass);
+      border: 1px solid rgba(255, 255, 255, 0.18);
+      box-shadow: var(--shadow-soft);
+      backdrop-filter: blur(28px) saturate(1.8);
+      padding: 22px 22px 20px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .glass-card::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(
+        circle at 120% -10%,
+        rgba(255, 255, 255, 0.175),
+        transparent 55%
+      );
+      opacity: 0.7;
+      pointer-events: none;
+      mix-blend-mode: screen;
+    }
+
+    .glass-inner {
+      position: relative;
+      z-index: 1;
+    }
+
+    /* Fade-in scroll animation */
+    .fade-section {
+      opacity: 0;
+      transform: translateY(26px) scale(0.985);
+      transition:
+        opacity 0.7s ease-out,
+        transform 0.7s ease-out;
+      will-change: opacity, transform;
+    }
+
+    .fade-section.is-visible {
+      opacity: 1;
+      transform: translateY(0) scale(1);
+    }
+
+    /* Hero / header card */
+    .hero {
+      padding: 24px 24px 22px;
+    }
+
+    .hero-top {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      gap: 18px;
+      align-items: flex-start;
+    }
+
+    .hero-main {
+      max-width: 65%;
+    }
+
+    .hero-name {
+      font-size: 2rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      font-weight: 700;
+    }
+
+    .hero-role {
+      margin-top: 4px;
+      font-size: 0.86rem;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+
+    .hero-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-top: 10px;
+    }
+
+    .hero-tag {
+      font-size: 0.72rem;
+      text-transform: uppercase;
+      letter-spacing: 0.14em;
+      padding: 4px 10px;
+      border-radius: 999px;
+      border: 1px solid rgba(255, 255, 255, 0.24);
+      background: rgba(6, 8, 18, 0.7);
+      color: #fdf3c5;
+      white-space: nowrap;
+    }
+
+    .hero-meta {
+      font-size: 0.8rem;
+      color: var(--muted);
+      text-align: right;
+      display: flex;
+      flex-direction: column;
+      gap: 3px;
+    }
+
+    .hero-meta a {
+      color: var(--accent);
+      text-decoration: none;
+      font-weight: 500;
+    }
+
+    .hero-meta a:hover {
+      text-decoration: underline;
+    }
+
+    .hero-summary {
+      margin-top: 16px;
+      font-size: 0.94rem;
+      color: #ececf6;
+    }
+
+    .hero-summary span {
+      color: var(--accent);
+      font-weight: 500;
+    }
+
+    /* Section blocks */
+    .section-title {
+      font-size: 0.78rem;
+      text-transform: uppercase;
+      letter-spacing: 0.24em;
+      color: var(--muted);
+      margin-bottom: 8px;
+    }
+
+    .section-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1.35fr) minmax(0, 1fr);
+      gap: 18px;
+    }
+
+    .chip-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .chip {
+      font-size: 0.78rem;
+      padding: 4px 10px;
+      border-radius: 999px;
+      border: 1px solid rgba(255, 255, 255, 0.18);
+      background: rgba(11, 14, 24, 0.95);
+      color: #f1f1ff;
+      white-space: nowrap;
+    }
+
+    .chip--accent {
+      border-color: var(--accent-strong);
+      background: var(--accent-soft);
+      color: #ffe9a4;
+    }
+
+    .subsection-label {
+      font-size: 0.78rem;
+      text-transform: uppercase;
+      letter-spacing: 0.18em;
+      color: var(--muted);
+      margin: 10px 0 6px;
+    }
+
+    /* Experience items */
+    .experience-item {
+      border-radius: 20px;
+      background: rgba(8, 10, 18, 0.92);
+      border: 1px solid rgba(255, 255, 255, 0.16);
+      padding: 13px 14px 10px;
+      margin-bottom: 10px;
+    }
+
+    .exp-header {
+      display: flex;
+      justify-content: space-between;
+      gap: 10px;
+      align-items: baseline;
+    }
+
+    .exp-role {
+      font-size: 0.96rem;
+      font-weight: 600;
+    }
+
+    .exp-company {
+      font-size: 0.82rem;
+      color: var(--muted);
+      margin-top: 1px;
+    }
+
+    .exp-meta {
+      font-size: 0.72rem;
+      text-transform: uppercase;
+      letter-spacing: 0.18em;
+      color: var(--muted);
+      white-space: nowrap;
+      text-align: right;
+    }
+
+    .exp-bullets {
+      margin-top: 6px;
+      padding-left: 16px;
+    }
+
+    .exp-bullets li {
+      font-size: 0.8rem;
+      margin-bottom: 4px;
+      color: #e1e1f2;
+    }
+
+    .small-note {
+      font-size: 0.78rem;
+      color: var(--muted);
+      margin-top: 6px;
+    }
+
+    .edu-rec-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr);
+      gap: 18px;
+    }
+
+    .edu-block-title {
+      font-size: 0.86rem;
+      font-weight: 600;
+      margin-bottom: 3px;
+    }
+
+    .edu-meta {
+      font-size: 0.8rem;
+      color: var(--muted);
+    }
+
+    .footer-note {
+      margin-top: 10px;
+      text-align: center;
+      font-size: 0.78rem;
+      color: var(--muted);
+    }
+
+    .footer-note span {
+      color: var(--accent);
+    }
+
+    /* Cover letter card */
+    .cover-letter-card {
+      padding: 22px 24px 22px;
+    }
+
+    .cover-heading {
+      font-size: 1.02rem;
+      font-weight: 600;
+      margin-bottom: 12px;
+    }
+
+    .cover-meta {
+      font-size: 0.78rem;
+      color: var(--muted);
+      margin-bottom: 14px;
+    }
+
+    .cover-body p {
+      font-size: 0.86rem;
+      margin-bottom: 10px;
+      color: #f2f2ff;
+    }
+
+    .cover-body p span {
+      color: var(--accent);
+      font-weight: 500;
+    }
+
+    /* Responsive */
+    @media (max-width: 780px) {
+      .shell {
+        margin-top: 90px;
+      }
+
+      .top-nav-inner {
+        padding-inline: 12px;
+      }
+
+      .nav-overline {
+        display: none;
+      }
+
+      .nav-name {
+        font-size: 0.88rem;
+      }
+
+      .hero-main {
+        max-width: 100%;
+      }
+
+      .hero {
+        padding: 20px 18px 18px;
+      }
+
+      .hero-name {
+        font-size: 1.55rem;
+      }
+
+      .hero-role {
+        font-size: 0.8rem;
+      }
+
+      .hero-meta {
+        text-align: left;
+      }
+
+      .section-grid,
+      .edu-rec-grid {
+        grid-template-columns: minmax(0, 1fr);
+      }
+
+      .glass-card {
+        padding-inline: 18px;
+      }
+
+      .cover-letter-card {
+        padding-inline: 18px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Apple-style top glass nav -->
+  <div class="top-nav">
+    <div class="top-nav-inner">
+      <div class="nav-brand">
+        <div class="nav-overline">Digital Asset & Creative Ops</div>
+        <div class="nav-name">Abdourahmane “Caliph” Doumbouya</div>
+      </div>
+      <div class="nav-tabs">
+        <button class="nav-tab active" data-target="resume">Resume</button>
+        <button class="nav-tab" data-target="cover-letter">Cover Letter</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="shell">
+    <main>
+      <!-- HERO / SUMMARY -->
+      <section id="resume" class="glass-card hero fade-section">
+        <div class="glass-inner">
+          <div class="hero-top">
+            <div class="hero-main">
+              <div class="hero-name">Abdourahmane “Caliph” Doumbouya</div>
+              <div class="hero-role">Creative Operations · Digital Asset Management</div>
+              <div class="hero-tags">
+                <span class="hero-tag">Asset Libraries</span>
+                <span class="hero-tag">Production-Ready Files</span>
+                <span class="hero-tag">Brand & Campaign Support</span>
+                <span class="hero-tag">Customer & Team-Centric</span>
+              </div>
+            </div>
+            <div class="hero-meta">
+              <span>Boston, MA · Open to Hybrid/Remote</span>
+              <a href="mailto:youremail@example.com">youremail@example.com</a>
+              <a href="tel:+15555555555">+1 (555) 555-5555</a>
+              <!-- Optional:
+              <a href="https://yourportfolio.com" target="_blank" rel="noreferrer">Portfolio / Case Studies</a>
+              -->
+            </div>
+          </div>
+          <p class="hero-summary">
+            Creative operations specialist with over <span>15 years</span> organizing design files, production assets,
+            and brand materials across agencies, apparel manufacturing, and strategy studios. I thrive on turning
+            scattered folders into clear systems, making it easy for teams to find the right asset, in the right format,
+            at the right time—all while keeping quality, details, and timelines tight.
+          </p>
+        </div>
+      </section>
+
+      <!-- SKILLS / LANGUAGES / TOOLS -->
+      <section class="glass-card fade-section">
+        <div class="glass-inner">
+          <div class="section-title">Core Capabilities</div>
+          <div class="section-grid">
+            <div>
+              <div class="subsection-label">Digital Asset & Operations</div>
+              <div class="chip-row">
+                <span class="chip">File & Version Management</span>
+                <span class="chip">Structured Folder Systems</span>
+                <span class="chip">Print & Web Asset Prep</span>
+                <span class="chip">Brand Identity Libraries</span>
+                <span class="chip">Quality & Consistency Checks</span>
+                <span class="chip">High-Volume Production</span>
+                <span class="chip">Workflow Coordination</span>
+              </div>
+
+              <div class="subsection-label">Customer & Team-Facing Skills</div>
+              <div class="chip-row">
+                <span class="chip">Customer Service & Communication</span>
+                <span class="chip">Team Leadership & Supervision</span>
+                <span class="chip">Problem Solving & Adaptability</span>
+                <span class="chip">Time Management</span>
+                <span class="chip">Logistics & Planning</span>
+                <span class="chip">Equipment Operation & Maintenance</span>
+                <span class="chip">Packing & Loading Techniques</span>
+              </div>
+            </div>
+
+            <div>
+              <div class="subsection-label">Languages</div>
+              <div class="chip-row">
+                <span class="chip chip--accent">English</span>
+                <span class="chip">French</span>
+                <span class="chip">Spanish</span>
+                <span class="chip">Wolof</span>
+                <span class="chip">Cape Verdean Creole</span>
+              </div>
+
+              <div class="subsection-label">Tools & Platforms</div>
+              <div class="chip-row">
+                <span class="chip">Zendesk</span>
+                <span class="chip">Notion</span>
+                <span class="chip">Salesforce</span>
+                <span class="chip">HubSpot</span>
+                <span class="chip">Google Suite</span>
+                <span class="chip">Adobe Photoshop</span>
+                <span class="chip">Adobe Illustrator</span>
+                <span class="chip">Adobe InDesign</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- EXPERIENCE -->
+      <section class="glass-card fade-section">
+        <div class="glass-inner">
+          <div class="section-title">Experience Snapshot</div>
+
+          <div class="experience-item">
+            <div class="exp-header">
+              <div>
+                <div class="exp-role">Creative Director</div>
+                <div class="exp-company">META MindArt · Boston, MA</div>
+              </div>
+              <div class="exp-meta">2025 – Present</div>
+            </div>
+            <ul class="exp-bullets">
+              <li>Maintain organized libraries of strategy decks, identity systems, and campaign assets for multiple clients.</li>
+              <li>Review final files for accuracy, formatting, and consistency before deployment across digital and print channels.</li>
+              <li>Coordinate with writers, designers, and strategists so the right assets are easy to find, reuse, and adapt.</li>
+            </ul>
+          </div>
+
+          <div class="experience-item">
+            <div class="exp-header">
+              <div>
+                <div class="exp-role">CEO / Creative Director / Lead Screen Printer</div>
+                <div class="exp-company">Bridge Impressions · New Bedford, MA</div>
+              </div>
+              <div class="exp-meta">2022 – 2024</div>
+            </div>
+            <ul class="exp-bullets">
+              <li>Managed thousands of apparel graphics, embroidery files, and print layouts across industries and client accounts.</li>
+              <li>Implemented clear naming systems and folder structures to support rapid production, reorders, and quality control.</li>
+              <li>Ensured assets met technical specs (format, color, resolution, scale) before hitting the production floor.</li>
+            </ul>
+          </div>
+
+          <div class="experience-item">
+            <div class="exp-header">
+              <div>
+                <div class="exp-role">Lead Designer / Branding Specialist</div>
+                <div class="exp-company">MA2K Impression · New Bedford, MA</div>
+              </div>
+              <div class="exp-meta">2016 – 2019</div>
+            </div>
+            <ul class="exp-bullets">
+              <li>Created and maintained full brand asset sets—logos, apparel, print pieces, and web graphics—for regional clients.</li>
+              <li>Delivered production-ready files to printers and developers in the correct formats, sizes, and color spaces.</li>
+            </ul>
+          </div>
+
+          <div class="experience-item">
+            <div class="exp-header">
+              <div>
+                <div class="exp-role">Creative Director</div>
+                <div class="exp-company">Irokos Group · Boston, MA</div>
+              </div>
+              <div class="exp-meta">2011 – 2013</div>
+            </div>
+            <ul class="exp-bullets">
+              <li>Produced packaging, label artwork, and digital assets for products with regulatory requirements and strict specs.</li>
+              <li>Organized multi-product artwork libraries so updates, variants, and regulatory changes stayed consistent.</li>
+            </ul>
+          </div>
+
+          <div class="experience-item">
+            <div class="exp-header">
+              <div>
+                <div class="exp-role">Lead Designer & Web Developer</div>
+                <div class="exp-company">Savage Advertising Solutions · New Bedford, MA</div>
+              </div>
+              <div class="exp-meta">2005 – 2011</div>
+            </div>
+            <ul class="exp-bullets">
+              <li>Owned end-to-end brand asset creation for local businesses: logos, sites, signage, vehicle wraps, and campaigns.</li>
+              <li>Built long-term client archives, keeping files organized for seasonal refreshes and future campaigns.</li>
+            </ul>
+          </div>
+
+          <div class="experience-item">
+            <div class="exp-header">
+              <div>
+                <div class="exp-role">Technical & Member Support Roles</div>
+                <div class="exp-company">Experian Data Quality · LogMeIn · Honey · Thrive Market</div>
+              </div>
+              <div class="exp-meta">2013 – 2022</div>
+            </div>
+            <ul class="exp-bullets">
+              <li>Documented technical and member issues with precision, contributing to internal knowledge bases and process improvements.</li>
+              <li>Supported users at different skill levels, strengthening communication, empathy, and problem-solving under pressure.</li>
+            </ul>
+            <p class="small-note">
+              These roles sharpened my ability to communicate clearly, log information accurately, and support teams and customers in fast-paced environments.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <!-- EDUCATION / RECOGNITION -->
+      <section class="glass-card fade-section">
+        <div class="glass-inner">
+          <div class="section-title">Education & Recognition</div>
+          <div class="edu-rec-grid">
+            <div>
+              <div class="edu-block-title">GNB Voc-Tech High School – Programming & Web Design</div>
+              <div class="edu-meta">New Bedford, MA · Class of 2007</div>
+              <p class="small-note" style="margin-top:6px;">
+                Early exposure to programming, web layout, and design systems gave me a strong foundation for structuring digital work
+                and thinking about how people move through interfaces and experiences.
+              </p>
+            </div>
+            <div>
+              <div class="subsection-label">Additional Recognition</div>
+              <div class="chip-row">
+                <span class="chip chip--accent">Grammy Award Winning Artist</span>
+                <span class="chip">Motivational Speaker</span>
+                <span class="chip">Creative Director</span>
+              </div>
+              <p class="small-note">
+                These experiences reflect my ability to connect with audiences, lead creative work, and perform at a high level under
+                visibility and pressure—while still loving the quiet, detailed work behind the scenes.
+              </p>
+            </div>
+          </div>
+          <div class="footer-note">
+            Built as an interactive one-pager to showcase <span>Digital Asset Management</span>, creative operations, and people-centered experience.
+          </div>
+        </div>
+      </section>
+
+      <!-- COVER LETTER -->
+      <section id="cover-letter" class="glass-card cover-letter-card fade-section">
+        <div class="glass-inner">
+          <div class="section-title">Cover Letter</div>
+          <div class="cover-heading">Junior Digital Asset Manager – PUMA</div>
+          <div class="cover-meta">
+            This view is optional for the reader but complements the resume with narrative context and intent.
+          </div>
+          <div class="cover-body">
+            <p>
+              Dear Hiring Manager,
+            </p>
+            <p>
+              I am writing to express my interest in the Junior Digital Asset Manager position at PUMA. With over
+              <span>15 years</span> of experience managing creative assets across branding, apparel production, customer-facing
+              environments, and strategy studios, I have built my career around keeping complex visual work organized, accurate,
+              and ready for use. I’m excited about the opportunity to bring that focus and discipline into a role supporting PUMA’s
+              creative and marketing efforts.
+            </p>
+            <p>
+              Throughout my career, I have sat at the intersection of design, production, and operations. As CEO and Creative
+              Director of Bridge Impressions, a full-service apparel manufacturing and branding company, I managed the full
+              lifecycle of thousands of assets—logos, apparel graphics, embroidery files, mockups, packaging elements, and
+              print-ready layouts. I developed naming systems, folder structures, and checklists that allowed the team to move
+              quickly while reducing errors and maintaining consistency for clients ranging from small businesses to artists,
+              athletes, and cannabis brands.
+            </p>
+            <p>
+              In my current role as Creative Director at META MindArt, I support brand strategy and storytelling work by keeping
+              identity systems, decks, and campaign assets carefully structured. I am comfortable working with layered design
+              files, exports for digital and print, and technical details like resolution, aspect ratio, and color profiles.
+              My goal is always the same: make it simple for teams to find what they need, understand how it should be used, and
+              trust that it has been prepared correctly.
+            </p>
+            <p>
+              Earlier roles in customer and technical support at Experian Data Quality, LogMeIn, Honey, and Thrive Market
+              strengthened my communication skills and attention to detail. I am used to answering questions, responding to
+              requests, documenting information clearly, and supporting users with different levels of technical comfort. That
+              experience translates naturally into helping teams navigate asset libraries, troubleshoot access questions, and
+              adopt shared systems.
+            </p>
+            <p>
+              What excites me most about this opportunity is the chance to contribute to a global brand by doing the quiet but
+              essential work that keeps creative output flowing: clean structures, reliable naming, accurate metadata, and
+              thoughtfully prepared files. I enjoy both the focused, heads-down organization time and the collaborative work of
+              supporting designers, marketers, and partners.
+            </p>
+            <p>
+              Thank you for considering my application. I would welcome the opportunity to discuss how my background in creative
+              operations, digital file handling, and customer-centered work can support PUMA’s goals.
+            </p>
+            <p>Sincerely,<br />Abdourahmane “Caliph” Doumbouya</p>
+          </div>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <script>
+    // nav tab scroll + active state
+    const tabs = document.querySelectorAll(".nav-tab");
+    const resumeSection = document.getElementById("resume");
+    const coverSection = document.getElementById("cover-letter");
+
+    tabs.forEach((tab) => {
+      tab.addEventListener("click", () => {
+        const target = tab.getAttribute("data-target");
+        const section =
+          target === "cover-letter" ? coverSection : resumeSection;
+
+        section.scrollIntoView({ behavior: "smooth", block: "start" });
+
+        tabs.forEach((t) => t.classList.remove("active"));
+        tab.classList.add("active");
+      });
+    });
+
+    // IntersectionObserver for fade-in sections
+    const fadeSections = document.querySelectorAll(".fade-section");
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add("is-visible");
+            observer.unobserve(entry.target);
+          }
+        });
+      },
+      {
+        threshold: 0.25,
+      }
+    );
+
+    fadeSections.forEach((section) => observer.observe(section));
+
+    // keep nav tab selection in sync with scroll position (simple version)
+    window.addEventListener("scroll", () => {
+      const resumeRect = resumeSection.getBoundingClientRect();
+      const coverRect = coverSection.getBoundingClientRect();
+      const mid = window.innerHeight / 2;
+
+      if (coverRect.top < mid) {
+        tabs.forEach((t) =>
+          t.classList.toggle(
+            "active",
+            t.getAttribute("data-target") === "cover-letter"
+          )
+        );
+      } else if (resumeRect.top < mid) {
+        tabs.forEach((t) =>
+          t.classList.toggle(
+            "active",
+            t.getAttribute("data-target") === "resume"
+          )
+        );
+      }
+    });
+  </script>
+</body>
+</html>
