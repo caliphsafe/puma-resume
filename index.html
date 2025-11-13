@@ -800,18 +800,41 @@
     const resumeSection = document.getElementById("resume");
     const coverSection = document.getElementById("cover-letter");
 
-    tabs.forEach((tab) => {
-      tab.addEventListener("click", () => {
-        const target = tab.getAttribute("data-target");
-        const section =
-          target === "cover-letter" ? coverSection : resumeSection;
+ tabs.forEach((tab) => {
+  tab.addEventListener("click", () => {
+    const target = tab.getAttribute("data-target");
 
-        section.scrollIntoView({ behavior: "smooth", block: "start" });
-
-        tabs.forEach((t) => t.classList.remove("active"));
-        tab.classList.add("active");
+    // If clicking RESUME → scroll to very top of the page
+    if (target === "resume") {
+      window.scrollTo({
+        top: 0,
+        behavior: "smooth"
       });
+
+      tabs.forEach((t) => t.classList.remove("active"));
+      tab.classList.add("active");
+      return;
+    }
+
+    // Otherwise (COVER LETTER) → scroll just below the nav bar
+    const section = coverSection;
+    const navHeight = document.querySelector(".top-nav-inner").offsetHeight + 20;
+
+    const sectionTop =
+      section.getBoundingClientRect().top +
+      window.pageYOffset -
+      navHeight;
+
+    window.scrollTo({
+      top: sectionTop,
+      behavior: "smooth"
     });
+
+    tabs.forEach((t) => t.classList.remove("active"));
+    tab.classList.add("active");
+  });
+});
+
 
     // IntersectionObserver for fade-in sections
     const fadeSections = document.querySelectorAll(".fade-section");
